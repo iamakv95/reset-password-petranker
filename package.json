@@ -1,0 +1,9 @@
+{
+  "name": "pet-ranker-reset",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "vercel dev",
+    "build": "echo 'Nothing to build'"
+  }
+}
