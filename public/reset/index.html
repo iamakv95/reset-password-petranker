@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Open petRanker — Password Reset</title>
+  <meta name="robots" content="noindex">
+  <style>
+    body { font-family: system-ui, -apple-system, Roboto, "Helvetica Neue", Arial; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:16px; text-align:center; background:#fff; color:#222; }
+    .card { max-width:520px; width:100%; padding:20px; border-radius:12px; box-shadow:0 6px 20px rgba(2,8,23,0.07); }
+    a.cta { display:inline-block; padding:10px 16px; background:#015055; color:#fff; border-radius:8px; text-decoration:none; margin-top:12px; }
+    p.small { color:#555; font-size:14px; margin-top:10px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 style="margin:0 0 8px">Opening petRanker…</h1>
+    <p id="msg" class="small">If nothing happens automatically, tap the button below or copy the link into your device.</p>
+    <a id="fallback" class="cta" href="#">Open petRanker</a>
+    <p class="small" style="margin-top:12px; font-size:13px; color:#777;">
+      If your device did not open the app, make sure petRanker is installed. This page will forward the reset token to the app.
+    </p>
+  </div>
+
+  <script>
+    (function() {
+      // App scheme target (your app must be configured with this scheme)
+      const appBase = "petranker://reset-password";
+
+      // forward the full query string exactly as Appwrite created it
+      const qs = window.location.search || "";
+      const appUrl = appBase + qs;
+
+      // Set fallback button link
+      const fallback = document.getElementById("fallback");
+      fallback.href = appUrl;
+
+      // Try to open the app (mobile browsers will attempt to open associated app)
+      function openApp() {
+        // Most mobile browsers will attempt to open the custom URI
+        window.location = appUrl;
+      }
+
+      // Attempt shortly after load
+      setTimeout(openApp, 300);
+
+      // Show fallback instructions if still on page
+      setTimeout(() => {
+        document.getElementById("msg").textContent = "If the app did not open, tap 'Open petRanker' or copy the link and open it manually.";
+        fallback.style.display = "inline-block";
+      }, 1200);
+    })();
+  </script>
+</body>
+</html>
